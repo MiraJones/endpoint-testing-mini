@@ -1,0 +1,300 @@
+{
+	"id": "03ff146a-ff12-41df-a3f7-9d0b79eee778",
+	"name": "Enpoint Testing Mini Project",
+	"description": null,
+	"auth": null,
+	"events": null,
+	"variables": null,
+	"order": [
+		"a9a88908-6113-4b99-8115-7914307749e5",
+		"30eeffd0-4f17-47d7-9f7c-af7bba29ce8c",
+		"0e9a6436-d7e3-4de9-9de2-7ce4f05fb503",
+		"5e4dc154-5deb-40de-aa93-1151667fd803",
+		"d222897f-ef62-4775-a3a9-a7d82ad2d1f8",
+		"62d8ea1d-ad27-4e84-acc9-27b34445bc33",
+		"a1cb6b88-d6cc-423e-a101-6847cf111ec0",
+		"11a5ad5b-0ff0-426a-8ba6-3375c6072bd2",
+		"9beffe8d-966a-4cea-8db5-11ab8a5547d5"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "0e9a6436-d7e3-4de9-9de2-7ce4f05fb503",
+			"name": "GET - Students By Name",
+			"url": "localhost:4000/api/students?name=la",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "name",
+					"value": "la",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d8fe9dc-1fe5-460d-be77-9cb9b3b8af25",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"All students have la in their name\", () => {",
+							"    var res = pm.response.json();",
+							"    flag = true",
+							"    res.forEach(el => {",
+							"        if(!el.student.toLowerCase().includes(\"la\")){",
+							"            flag = false",
+							"        }",
+							"    })",
+							"    pm.expect(flag).to.eql(true)",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "11a5ad5b-0ff0-426a-8ba6-3375c6072bd2",
+			"name": "POST - Add Student",
+			"url": "localhost:4000/api/students",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"student\": \"Tim Allen\",\n    \"email_address\": \"tim@homeimprovement.com\",\n    \"phone\": \"(408) 8674530\",\n    \"current_grade\": \"B+\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "30eeffd0-4f17-47d7-9f7c-af7bba29ce8c",
+			"name": "GET - Student By Id",
+			"url": "localhost:4000/api/students/9",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4682a86c-2894-4346-9bf0-3ce46c1852c9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Make sure we get back the right student\", () => {",
+							"    let res = pm.response.json();",
+							"    const student9 = {",
+							"  \"id\": 9,",
+							"  \"student\": \"Patsy Daunay\",",
+							"  \"email_address\": \"pdaunay8@about.com\",",
+							"  \"phone\": \"(806) 2654555\",",
+							"  \"current_grade\": \"A\"",
+							"};",
+							"    pm.expect(student9).to.eql(res[0])",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "5e4dc154-5deb-40de-aa93-1151667fd803",
+			"name": "GET - Students By Grade",
+			"url": "localhost:4000/api/students?grade=c",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "grade",
+					"value": "c",
+					"equals": true
+				}
+			],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "62d8ea1d-ad27-4e84-acc9-27b34445bc33",
+			"name": "GET - Students By Phone",
+			"url": "localhost:4000/api/students?phone=608",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "phone",
+					"value": "608",
+					"equals": true
+				}
+			],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "9beffe8d-966a-4cea-8db5-11ab8a5547d5",
+			"name": "DELETE - Remove Student",
+			"url": "localhost:4000/api/students/18",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "a1cb6b88-d6cc-423e-a101-6847cf111ec0",
+			"name": "PUT - Update Grade",
+			"url": "localhost:4000/api/students/15",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97985239-79d0-481b-9f2f-f228f1796e83",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check that grade is changed\", () => {",
+							"    var res = pm.response.json();",
+							"    pm.expect(res[0].current_grade).to.eql(\"A-\")",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n\t\"current_grade\": \"A-\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "a9a88908-6113-4b99-8115-7914307749e5",
+			"name": "GET - All Students",
+			"url": "localhost:4000/api/students",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f23edff5-4c07-4cee-adaa-819494c7d19f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"All 20 students in response\", () => {",
+							"    let response = pm.response.json();",
+							"    let result = response.length;",
+							"    pm.expect(result).to.eql(20)",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "d222897f-ef62-4775-a3a9-a7d82ad2d1f8",
+			"name": "GET - Students By Email",
+			"url": "localhost:4000/api/students?email=gdee@clickbank.net",
+			"description": null,
+			"data": [],
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "email",
+					"value": "gdee@clickbank.net",
+					"equals": true
+				}
+			],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}
